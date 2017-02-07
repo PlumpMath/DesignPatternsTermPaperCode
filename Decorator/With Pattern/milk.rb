@@ -24,7 +24,7 @@ class Milk < Drink
 
   def heat_milk
     puts "Heating milk"
-    sleep(2)
+    sleep(0.5)
     puts "milk is heated"
     @milk_temp=:hot
   end
