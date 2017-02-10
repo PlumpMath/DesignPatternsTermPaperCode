@@ -1,8 +1,8 @@
 require_relative 'barista'
 
 #Loop 1000 times and make the same coffee
-1000.times do
-  bar=Barista.new
-  bar.produce_drink
+1.times do
+  barista=Barista.new
+  barista.produce_drink
 end
 
