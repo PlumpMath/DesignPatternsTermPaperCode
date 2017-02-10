@@ -23,7 +23,7 @@ class Barista
     sugar.add '', 0, 0
     # What about an extra shot of coffee
     second_coffee=Coffee.new(sugar)
-    second_coffee.add 'Columbian blend', 1, 0.5
+    second_coffee.add 'Colombian blend', 1, 0.5
     #and syrup
     syrup=Syrup.new(second_coffee)
     syrup.add 'Vanilla', 1, 0.5
