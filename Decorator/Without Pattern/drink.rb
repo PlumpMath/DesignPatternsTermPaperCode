@@ -59,7 +59,7 @@ class Drink
 
   def heat_milk
     puts 'Heating milk'
-    sleep(0.5)
+    #sleep(0.5)
     puts 'Milk is heated'
   end
 
@@ -88,11 +88,11 @@ class Drink
   def print_constituents
     puts "Water is #{@elements[:water]}"
     puts "Coffee is #{@elements[:coffee]}"
-    #puts "Second coffee is #{second_coffee.type}"
-    #puts "Milk is #{milk.type}"
-    #puts "Sugar is #{sugar.type}"
-    #puts "Syrup is #{syrup.type}"
-    #puts "Nip is #{nip.type}"
+    puts "Second coffee is #{@elements[:second_coffee]}"
+    puts "Milk is #{@elements[:milk]}"
+    puts "Sugar is #{@elements[:sugar]}"
+    puts "Syrup is #{@elements[:syrup]}"
+    puts "Nip is #{@elements[:nip]}"
   end
 
 end
