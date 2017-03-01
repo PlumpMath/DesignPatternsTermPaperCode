@@ -1,3 +1,5 @@
+require 'ruby-prof'
+
 require_relative 'proofer'
 
 @english_text=['hello', 'the', 'purpose', 'of', 'this', 'sample', 'is', 'to', 'test', 'some', 'spelling', 'mistakes', 'using', 'the', 'object pool', 'design', 'pattern', 'au reviour']
@@ -74,9 +76,19 @@ end
 
 
 
+RubyProf.measure_mode = RubyProf::CPU_TIME
+RubyProf.start
+
 test_full_language(:english)
 test_full_language(:french)
 test_full_language(:german)
 test_full_language(:spanish)
 
 test_randomly 10000
+
+result=RubyProf.stop
+
+
+# print a flat profile to text
+printer = RubyProf::FlatPrinter.new(result)
+printer.print(STDOUT)
