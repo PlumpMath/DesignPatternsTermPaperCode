@@ -46,7 +46,7 @@ end
 
 def live_life
   p = Person.new
-  for i in 1..80
+  for i in 1..100
     p.incr_age
     p.apply_for_medical_card
     p.apply_for_bus_pass
