@@ -48,7 +48,7 @@ class DeviceManager
         puts 'device has switched state to high usage state'
       end
 
-      @behaviour.write_data
+      @behaviour.write_data nil, @usage_percentage
     end
 
   end

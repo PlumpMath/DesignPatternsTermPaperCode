@@ -1,11 +1,11 @@
 class UsageState
   @write_cycle_count=0
 
-  def write_data
-    #if @write_cycle_count % @defrag_rhythm == 0
+  def write_data (data, usage_count)
+    if usage_count % @defrag_rhythm == 0
       print '.'
       defrag_data
-    #end
+    end
   end
 
   def read_data
