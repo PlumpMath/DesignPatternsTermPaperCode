@@ -1,6 +1,7 @@
 
 # Mel Ó Cinnéide
 # with thanks to Vince Huston for the example
+# Extended to support parts 2 and 3 of the lab exercise i.e. teenager and apply_for_medical_card
 
 class Person
   def initialize
@@ -59,7 +60,7 @@ end
 
 def live_life
   p = Person.new
-  for i in 1..80
+  for i in 1..100
     p.incr_age
     p.apply_for_medical_card
     p.apply_for_bus_pass

@@ -17,6 +17,7 @@ def test_full_language (language)
     when :french then data=@french_text
     when :german then data=@german_text
     when :spanish then data=@spanish_text
+    else data=nil
   end
 
   data.each do |str|
@@ -63,66 +64,37 @@ def test_randomly (iterations)
         word_index=rand(@spanish_text.count)
         str = @spanish_text[word_index].downcase
         result=@proofer.check? :spanish, str
+      else
+        result=nil
+        str=''
+        language=''
     end
-    if result
+    if result!=nil && language!=''
       puts "Word #{str} was found in the #{language} dictionary"
       #found_count+=1
-    else
-      puts "Word #{str} was not found in the #{language} dictionary"
-      #not_found_count+=1
+    else if language!=''
+        puts "Word #{str} was not found in the #{language} dictionary"
+        #not_found_count+=1
+      end
     end
   end
 end
 
 
-def single_test_pass
-  test_full_language(:english)
-  test_full_language(:french)
-  test_full_language(:german)
-  test_full_language(:spanish)
 
-  test_randomly 1000
-end
+RubyProf.measure_mode = RubyProf::CPU_TIME
+RubyProf.start
+
+test_full_language(:english)
+test_full_language(:french)
+test_full_language(:german)
+test_full_language(:spanish)
+
+test_randomly 10000
+
+result=RubyProf.stop
 
 
-def profile_runs_CPU
-  run_count=0
-  output_file=File.open('CPUtime - without.csv', 'w')
-  output_file.puts 'Run number:,Thread number:,CPU_Total_Time'
-  10000.times do
-    run_count+=1
-    RubyProf.measure_mode = RubyProf::CPU_TIME
-    RubyProf.start
-
-    single_test_pass
-
-    result=RubyProf.stop
-
-    thread_count=0
-    result.threads.each do |thread|
-      output_file.puts "#{run_count},#{thread_count},#{thread.total_time}"
-      thread_count+=1
-    end
-  end
-  output_file.close
-end
-
-def profile_runs_mem
-  run_count=0
-  output_file=File.open('MemUsage - without.csv', 'w')
-  output_file.puts 'Run number:,KiloBytes in use'
-
-  10000.times do
-    run_count+=1
-
-    single_test_pass
-
-    memory_usage = `ps -o rss= -p #{Process.pid}`.to_i # in kilobytes
-    output_file.puts "#{run_count},#{memory_usage}"
-
-  end
-  output_file.close
-end
-
-profile_runs_CPU
-profile_runs_mem
+# print a flat profile to text
+printer = RubyProf::FlatPrinter.new(result)
+printer.print(STDOUT)
