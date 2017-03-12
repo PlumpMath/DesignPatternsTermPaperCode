@@ -1,3 +1,5 @@
+require 'ruby-prof'
+
 require_relative 'proofer'
 
 @english_text=['hello', 'the', 'purpose', 'of', 'this', 'sample', 'is', 'to', 'test', 'some', 'spelling', 'mistakes', 'using', 'the', 'object pool', 'design', 'pattern', 'au reviour']
@@ -72,11 +74,52 @@ def test_randomly (iterations)
   end
 end
 
+def single_test_pass
+  test_full_language(:english)
+  test_full_language(:french)
+  test_full_language(:german)
+  test_full_language(:spanish)
+  test_randomly 1000
+end
 
+def profile_runs_CPU
+  run_count=0
+  output_file=File.open('CPUtime - with.csv', 'w')
+  output_file.puts 'Run number:,Thread number:,CPU_Total_Time'
+  10000.times do
+    run_count+=1
+    RubyProf.measure_mode = RubyProf::CPU_TIME
+    RubyProf.start
 
-test_full_language(:english)
-test_full_language(:french)
-test_full_language(:german)
-test_full_language(:spanish)
+    single_test_pass
 
-test_randomly 1000
+    result=RubyProf.stop
+
+    thread_count=0
+    result.threads.each do |thread|
+      output_file.puts "#{run_count},#{thread_count},#{thread.total_time}"
+      thread_count+=1
+    end
+  end
+  output_file.close
+end
+
+def profile_runs_mem
+  run_count=0
+  output_file=File.open('MemUsage - with.csv', 'w')
+  output_file.puts 'Run number:,Kb in use'
+
+  10000.times do
+    run_count+=1
+
+    single_test_pass
+
+    memory_usage = `ps -o rss= -p #{Process.pid}`.to_i # in kilobytes
+    output_file.puts "#{run_count},#{memory_usage}"
+
+  end
+  output_file.close
+end
+
+profile_runs_CPU
+profile_runs_mem

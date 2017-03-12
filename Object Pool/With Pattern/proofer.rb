@@ -23,7 +23,6 @@ class Proofer
     @spanish0=SpanishSpellChecker.new
     @spanish1=SpanishSpellChecker.new
     @spanish2=SpanishSpellChecker.new
-
   end
 
   def check? (language, text)

@@ -2,5 +2,6 @@
 echo Running $1 tests
 for i in {1..$1}
 do
-	ruby-prof main.rb
+    echo Test run i
+	ruby-prof main.rb >> profiledata.txt
 done
