@@ -1,4 +1,5 @@
 require_relative 'report'
+require 'ruby-prof'
 
 def single_test_pass
   report = Report.new
@@ -18,6 +19,7 @@ def profile_runs_CPU
   output_file.puts 'Run number:,Thread number:,CPU_Total_Time'
   10000.times do
     run_count+=1
+    `echo -n -e "\033]0;TEST PASS - #{run_count}\007"`
     RubyProf.measure_mode = RubyProf::CPU_TIME
     RubyProf.start
 

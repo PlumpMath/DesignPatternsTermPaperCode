@@ -2,7 +2,7 @@ require_relative 'StateExercise'
 require 'ruby-prof'
 
 def single_test_pass
-  1000.times do
+  10.times do
     live_life
   end
 end

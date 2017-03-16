@@ -44,6 +44,7 @@ def profile_runs_mem
   output_file.puts 'Run number:,Kb in use'
 
   10000.times do
+    #`echo -n -e "\033]0;TEST PASS - #{run_count}\007"`
     run_count+=1
 
     single_test_pass
