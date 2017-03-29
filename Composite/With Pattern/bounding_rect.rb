@@ -1,5 +1,0 @@
-class BoundingRect
-
-
-
-end
